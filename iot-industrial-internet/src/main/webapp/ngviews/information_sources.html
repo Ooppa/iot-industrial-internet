@@ -1,0 +1,21 @@
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Source ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="ds in sources" >
+                            <td><a ng-href="#/sources/{{ds.id}}">{{ds.id}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -19,12 +19,19 @@ public class IndexController {
     public String index(Model model) {
         ViewParams params = new ViewParams("Hello world!", "Tervetuloa Springiin!");
 
-        if(true){ // if user logged in etc...
+        if (true) { // if user logged in etc...
             params.setNavtype("loggedin");
         }
-        
+
         ViewUtils.addViewParamsToModel(model, params);
 
         return "default";
+    }
+
+    @RequestMapping("/ng")
+    public String ng(Model model) {
+        ViewParams params = new ViewParams("Hello world!", "Tervetuloa Springiin!");
+        ViewUtils.addViewParamsToModel(model, params);
+        return "ng";
     }
 }

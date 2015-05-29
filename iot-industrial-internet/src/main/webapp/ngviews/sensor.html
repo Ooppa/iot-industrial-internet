@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Sensor {{sensor.id}}</h1>
+        <div class="panel panel-default">
+            <div class="panel-heading">Listing {{readouts.length}} readouts</div>
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Time of measurement</th>
+                                <th>Quantity</th>
+                                <th>Value</th>
+                                <th>Unit</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="readout in readouts">
+                                <td>{{readout.time}}</td>
+                                <td>{{readout.quantity}}</td>
+                                <td>{{readout.value}}</td>
+                                <td>{{readout.unit}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

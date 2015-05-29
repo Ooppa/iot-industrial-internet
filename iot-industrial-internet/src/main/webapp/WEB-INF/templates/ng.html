@@ -1,0 +1,205 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<!--
+    IoT - Industrial Internet Framework
+    Apache License Version 2.0, January 2004
+    Released as a part of Helsinki University
+    Software Engineering Lab in summer 2015
+-->
+
+<!-- TODO: Convert this to use Angular -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="TODO" />
+        <meta name="author" content="TODO" />
+
+        <title th:text="${viewparams.pagetitle}">null</title>
+
+        <link th:href="@{/bower_components/morrisjs/morris.css}" rel="stylesheet" />
+        <link th:href="@{/dist/css/timeline.css}" rel="stylesheet" />
+        <link th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet" />
+        <link th:href="@{/bower_components/metisMenu/dist/metisMenu.min.css}" rel="stylesheet" />
+        <link th:href="@{/dist/css/sb-admin-2.css}" rel="stylesheet" />
+        <link th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body ng-app="IIFramework">
+
+        <div id="wrapper">
+
+            <div th:fragment="loggedin">
+                <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" th:href="@{#/}">Industrial Internet Framework</a>
+                    </div>
+                    <!-- /.navbar-header -->
+
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-alerts">
+                                <li>
+                                    <a href="#">
+                                        <div>
+                                            <i class="fa fa-exclamation-triangle fa-fw"></i> Could not find sensor!
+                                            <span class="pull-right text-muted small">2 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        <div>
+                                            <i class="fa fa-flag fa-fw"></i> Event triggered!
+                                            <span class="pull-right text-muted small">12 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        <div>
+                                            <i class="fa fa-exclamation-triangle fa-fw"></i> Incorrect data recieved!
+                                            <span class="pull-right text-muted small">54 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        <div>
+                                            <i class="fa fa-lock fa-fw"></i> Failed login attempt
+                                            <span class="pull-right text-muted small">4 hours ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        <div>
+                                            <i class="fa fa-upload fa-fw"></i> Server Shutdown
+                                            <span class="pull-right text-muted small">7 hours ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a class="text-center" th:href="@{/alerts/list}">
+                                        <strong>See All Alerts</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- /.dropdown-alerts -->
+                        </li>
+                        <!-- /.dropdown -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                </li>
+                            </ul>
+                            <!-- /.dropdown-user -->
+                        </li>
+                        <!-- /.dropdown -->
+                    </ul>
+                    <!-- /.navbar-top-links -->
+
+                    <div class="navbar-default sidebar" role="navigation">
+                        <div class="sidebar-nav navbar-collapse">
+                            <ul class="nav" id="side-menu">
+                                <li>
+                                    <a th:href="@{#/}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Visualization<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a th:href="@{#/visual/now}"><i class="fa fa-spinner fa-spin fa-fw"></i> Realtime</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{#/visual/history}"><i class="fa fa-history fa-fw"></i> History</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Management<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a th:href="@{#/sources/}"><i class="fa fa-upload fa-fw"></i> Information Sources</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/database}"><i class="fa fa-database fa-fw"></i> Database</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/alerts/list}"><i class="fa fa-bell fa-fw"></i> Alerts</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/users/list}"><i class="fa fa-group fa-fw"></i> Users</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                                </li>
+                                <li>
+                                    <a th:href="@{/help}"><i class="fa fa-info-circle fa-fw"></i> Help</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.sidebar-collapse -->
+                    </div>
+                    <!-- /.navbar-static-side -->
+                </nav>
+            </div>
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <div ng-view></div>
+                </div>
+            </div>
+
+        </div>
+
+        <script th:attr="src=@{/bower_components/jquery/dist/jquery.min.js}"></script>
+        <script th:attr="src=@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+        <script th:attr="src=@{/bower_components/metisMenu/dist/metisMenu.min.js}"></script>
+        <script th:attr="src=@{/bower_components/angular/angular.js}"></script>
+        <script th:attr="src=@{/bower_components/angular-route/angular-route.min.js}"></script>
+        <script th:attr="src=@{/bower_components/angular-resource/angular-resource.min.js}"></script>
+        <!-- Flot Charts JavaScript -->
+        <script th:attr="src=@{/bower_components/flot/excanvas.min.js}"></script>
+        <script th:attr="src=@{/bower_components/flot/jquery.flot.js}"></script>
+        <script th:attr="src=@{/bower_components/flot/jquery.flot.pie.js}"></script>
+        <script th:attr="src=@{/bower_components/flot/jquery.flot.resize.js}"></script>
+        <script th:attr="src=@{/bower_components/flot/jquery.flot.time.js}"></script>
+        <script th:attr="src=@{/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js}"></script>
+        <script th:attr="src=@{/bower_components/angular-flot/angular-flot.js}"></script>
+
+        <script th:attr="src=@{/dist/js/sb-admin-2.js}"></script>
+
+        <script th:attr="src=@{/js/ngapp.js}"></script>
+        <script th:attr="src=@{/js/controllers/front_controller.js}"></script>
+        <script th:attr="src=@{/js/controllers/visual_realtime_controller.js}"></script>
+        <script th:attr="src=@{/js/information_sources/information_source_services.js}"></script>
+        <script th:attr="src=@{/js/information_sources/information_source_controllers.js}"></script>
+
+    </body>
+
+</html>
+
