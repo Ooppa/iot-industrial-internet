@@ -1,0 +1,37 @@
+<div class="col-lg-12">
+  <a type="button" class="btn btn-primary" ng-href="#/configurations/add">Add Information source</a>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>URL</th>
+                            <th>Read frequency</th>
+                            <th>Read date/time & interval</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="c in configurations" >
+                            <td>{{c.id}}</td>
+                            <td>{{c.name}}</td>
+                            <td>{{c.type}}</td>
+                            <td>{{c.url}}</td>
+                            <td>{{c.readFrequency}}</td>
+                            <td>-placeholder-</td>
+                            <td>
+                                <a type="button" class="btn btn-primary btn-xs" ng-href="#/configurations/{{c.id}}/edit">Edit</a>
+                              <a type="button" class="btn btn-danger btn-xs" ng-click="deleteConfiguration(c.id)">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

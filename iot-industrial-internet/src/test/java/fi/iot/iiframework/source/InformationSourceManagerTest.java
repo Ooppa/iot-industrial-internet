@@ -6,49 +6,76 @@
  */
 package fi.iot.iiframework.source;
 
+import fi.iot.iiframework.domain.InformationSourceConfiguration;
 import fi.iot.iiframework.application.TestConfig;
+import fi.iot.iiframework.services.domain.InformationSourceConfigurationService;
+import fi.iot.iiframework.services.domain.SensorService;
+import java.util.Map;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.mockito.MockitoAnnotations.initMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-@TransactionConfiguration(defaultRollback = true)
-@Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {TestConfig.class})
 public class InformationSourceManagerTest {
 
     @Autowired
-    private InformationSourceManager manager;
+    private InformationSourceManagerImpl manager;
+
+    @Mock
+    private InformationSourceConfigurationService mockConfigService;
+
+    @Mock
+    private SensorService mockService;
+
     private InformationSourceConfiguration config;
-    private InformationSourceConfiguration config2;
 
     @Before
     public void setUp() {
+        initMocks(this);
+        manager.setConfigService(mockConfigService);
+        manager.setSensorService(mockService);
+
         config = new InformationSourceConfiguration();
+        config.setId("1");
+        config.setName("Example");
         config.setUrl("http://axwikstr.users.cs.helsinki.fi/data.xml");
         config.setType(InformationSourceType.XML);
+        config.setActive(false);
+        config.setReadFrequency(0);
         manager.createSource(config);
-        
-        config2 = new InformationSourceConfiguration();
-        config2.setName("Example Config");
-        config2.setType(InformationSourceType.XML);
-        config2.setUrl("http://t-teesalmi.users.cs.helsinki.fi/MafiaTools/source.xml");
-        manager.createSource(config2);
     }
 
     @Test
-    public void sourcesCanBeCreatedAndReplacedWithNewSources() {
-//        assertEquals(2, manager.getSources().size());
-//        assertEquals("http://axwikstr.users.cs.helsinki.fi/data.xml", manager.getAllSourceConfigsFromDB().get(0).getUrl());
-//        config2.setUrl("updated url");
-//        manager.updateSource(config2);
-//        assertEquals("updated url", manager.getSources().get(1).getConfig().getUrl());
-//        assertEquals("updated url", manager.getAllSourceConfigsFromDB().get(1).getUrl());
+    public void aNewInformationSourceIsCreatedSuccesfully() {
+        Map<String, InformationSource> sources = manager.getSources();
+        assertEquals(config, sources.get("1").getConfig());
     }
+
+    @Test
+    public void whenCreatedTheConfigurationIsSavedInDB() {
+        Mockito.verify(mockConfigService).save(config);
+    }
+
+    @Test
+    public void updateUpdatesTheConfigurationInDatabase() {
+        config.setName("Another example");
+        manager.updateSource(config);
+        Mockito.verify(mockConfigService, Mockito.times(2)).save(config);
+    }
+    
+    @Test
+    public void removeRemovesTheConfiguration() {
+        manager.removeSource(config.getId());
+        assertTrue(manager.getSources().isEmpty());
+        Mockito.verify(mockConfigService, Mockito.times(1)).delete(config);
+    }
+
 }

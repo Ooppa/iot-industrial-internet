@@ -6,15 +6,15 @@
  */
 package fi.iot.iiframework.restapi;
 
+import java.util.List;
+import java.util.Map;
 import fi.iot.iiframework.application.ApplicationSettings;
-import fi.iot.iiframework.domain.Device;
+import fi.iot.iiframework.domain.InformationSourceConfiguration;
 import fi.iot.iiframework.domain.Sensor;
 import fi.iot.iiframework.restapi.exceptions.InvalidParametersException;
 import fi.iot.iiframework.restapi.exceptions.ResourceNotFoundException;
-import fi.iot.iiframework.services.domain.DeviceService;
+import fi.iot.iiframework.services.domain.InformationSourceConfigurationService;
 import fi.iot.iiframework.services.domain.SensorService;
-import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SensorController {
     
     @Autowired
-    private DeviceService deviceservice;
+    private InformationSourceConfigurationService sourceService;
     
     @Autowired
     private SensorService sensorservice;
@@ -47,38 +47,41 @@ public class SensorController {
         return (Sensor) helper.returnOrException(sensorservice.get(sensorid));
     }
 
-    @RequestMapping(value = "/{deviceid}/list", produces = "application/json")
+    @RequestMapping(value = "/{sourceid}/list", produces = "application/json")
     @ResponseBody
     public List<Sensor> listSensors(
-            @PathVariable String deviceid,
+            @PathVariable String sourceid,
             @RequestParam(required = false) Map<String, String> params
     ) throws ResourceNotFoundException {
-        Device device = (Device) helper.returnOrException(deviceservice.get(deviceid));
-        return sensorservice.getBy(0, settings.getDefaultAmountOfSensorsRetrievedFromDatabase(), device);
+        InformationSourceConfiguration source = 
+                (InformationSourceConfiguration) helper.returnOrException(sourceService.get(sourceid));
+        return sensorservice.getBy(0, settings.getDefaultAmountOfSensorsRetrievedFromDatabase(), source);
     }
 
-    @RequestMapping(value = "/{deviceid}/list/{amount}", produces = "application/json")
+    @RequestMapping(value = "/{sourceid}/list/{amount}", produces = "application/json")
     @ResponseBody
     public List<Sensor> listSensorsAmount(
-            @PathVariable String deviceid,
+            @PathVariable String sourceid,
             @PathVariable int amount,
             @RequestParam(required = false) Map<String, String> params
     ) throws ResourceNotFoundException, InvalidParametersException {
-        Device device = (Device) helper.returnOrException(deviceservice.get(deviceid));
+        InformationSourceConfiguration source = 
+                (InformationSourceConfiguration) helper.returnOrException(sourceService.get(sourceid));
         helper.exceptionIfWrongLimits(0, amount);
-        return sensorservice.getBy(0, amount, device);
+        return sensorservice.getBy(0, amount, source);
     }
 
-    @RequestMapping(value = "/{deviceid}/list/{from}/{to}", produces = "application/json")
+    @RequestMapping(value = "/{sourceid}/list/{from}/{to}", produces = "application/json")
     @ResponseBody
     public List<Sensor> listSensorsFromTo(
-            @PathVariable String deviceid,
+            @PathVariable String sourceid,
             @PathVariable int from,
             @PathVariable int to,
             @RequestParam(required = false) Map<String, String> params
     ) throws InvalidParametersException, ResourceNotFoundException {
-        Device device = (Device) helper.returnOrException(deviceservice.get(deviceid));
+        InformationSourceConfiguration source = 
+                (InformationSourceConfiguration) helper.returnOrException(sourceService.get(sourceid));
         helper.exceptionIfWrongLimits(to, from);
-        return sensorservice.getBy(from, to, device);
+        return sensorservice.getBy(from, to, source);
     }
 }

@@ -16,17 +16,21 @@ public class ApplicationSettings {
 
     private final int maxObjectsRetrievedFromDatabase = 1000;
     
-    private int defaultAmountOfReadoutsRetrievedFromDatabase = 100;
+    private final int defaultAmountOfReadoutsRetrievedFromDatabase = 100;
 
-    private int defaultAmountOfDevicesRetrievedFromDatabase = 10;
+    private final int defaultAmountOfDevicesRetrievedFromDatabase = 10;
 
-    private int defaultAmountOfDataSourcesRetrievedFromDatabase = 10;
+    private final int defaultAmountOfDataSourcesRetrievedFromDatabase = 10;
 
-    private int defaultAmountOfSensorsRetrievedFromDatabase = 10;
+    private final int defaultAmountOfSensorsRetrievedFromDatabase = 10;
 
-    private int defautAmountOfErrorsRetrievedFromDatabase = 25;
+    private final int defautAmountOfErrorsRetrievedFromDatabase = 25;
 
-    private int defaultInformationSourcesRetrievedFromDatabase = 10;
+    private final int defaultInformationSourcesRetrievedFromDatabase = 10;
+    
+    private final int defaultDeviceConfigurationsRetrievedFromDatabase = 10;
+    
+    private final int defaultSensorConfigurationsRetrievedFromDatabase = 10;
 
     public int getMaxObjectsRetrievedFromDatabase() {
         return maxObjectsRetrievedFromDatabase;
@@ -54,6 +58,14 @@ public class ApplicationSettings {
 
     public int getDefaultInformationSourcesRetrievedFromDatabase() {
         return defaultInformationSourcesRetrievedFromDatabase;
+    }
+
+    public int getDefaultDeviceConfigurationsRetrievedFromDatabase() {
+        return defaultDeviceConfigurationsRetrievedFromDatabase;
+    }
+
+    public int getDefaultSensorConfigurationsRetrievedFromDatabase() {
+        return defaultSensorConfigurationsRetrievedFromDatabase;
     }
 
 }

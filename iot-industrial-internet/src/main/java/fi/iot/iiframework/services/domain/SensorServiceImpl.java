@@ -6,15 +6,12 @@
  */
 package fi.iot.iiframework.services.domain;
 
-import fi.iot.iiframework.daos.domain.DeviceDAO;
 import fi.iot.iiframework.domain.Sensor;
 import fi.iot.iiframework.daos.domain.SensorDAO;
-import fi.iot.iiframework.domain.Device;
+import fi.iot.iiframework.domain.InformationSourceConfiguration;
 import fi.iot.iiframework.services.GenericHibernateService;
-import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,19 +31,19 @@ public class SensorServiceImpl
     }
 
     @Override
-    public List<Sensor> getBy(Device device) {
-        return getBy(0, Integer.MAX_VALUE, device);
+    public List<Sensor> getBy(InformationSourceConfiguration source) {
+        return getBy(0, Integer.MAX_VALUE, source);
     }
 
     @Override
-    public List<Sensor> getBy(int from, int to, Device device) {
-        return sensorDAO.getBy(from, to, device);
+    public List<Sensor> getBy(int from, int to, InformationSourceConfiguration source) {
+        return sensorDAO.getBy(from, to, source);
     }
 
     @Override
-    public Long countBy(Device device) {
+    public Long countBy(InformationSourceConfiguration source) {
         return sensorDAO.countByCriteria(
-                buildCriterionList(Restrictions.eq("device", device))
+                buildCriterionList(Restrictions.eq("source", source))
         );
     }
 

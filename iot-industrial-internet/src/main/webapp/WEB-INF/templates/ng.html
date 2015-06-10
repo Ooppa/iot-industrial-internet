@@ -22,7 +22,7 @@
         <link th:href="@{/bower_components/metisMenu/dist/metisMenu.min.css}" rel="stylesheet" />
         <link th:href="@{/dist/css/sb-admin-2.css}" rel="stylesheet" />
         <link th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
-        
+
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
     </head>
 
@@ -55,30 +55,28 @@
 
                             <ul class="dropdown-menu dropdown-alerts" >
 
-                                <p ng-repeat="error in alarmlist" >
-                                    <li ng-repeat="error in alarmlist">
-                                        <a href="#/syserrors/{{error.id}}">
-                                            <div>
-                                                <div ng-if="error.severity == 'FATAL'">
-                                                    <font color="red">
-                                                        <i class="fa fa-exclamation-triangle fa-fw"></i>{{error.type}}</font>
-                                                </div>
-                                                <div ng-if="error.severity != 'FATAL'">
-                                                    <i class="fa fa-bell fa-fw"></i>{{error.type}} 
-                                                </div>
-                                                <span class="pull-right text-muted small" am-time-ago=error.time></span>
+                                <li ng-repeat="error in alarmlist">
+                                    <a href="#/syserrors/{{error.id}}">
+                                        <div>
+                                            <div ng-if="error.severity == 'FATAL'">
+                                                <font color="red">
+                                                    <i class="fa fa-exclamation-triangle fa-fw"></i>{{error.type}}</font>
                                             </div>
-                                        </a>
-                                    </li>
+                                            <div ng-if="error.severity != 'FATAL'">
+                                                <i class="fa fa-bell fa-fw"></i>{{error.type}} 
+                                            </div>
+                                            <span class="pull-right text-muted small" am-time-ago=error.time></span>
+                                        </div>
+                                    </a>
+                                </li>
 
-                                    <li>
-                                        <a class="text-center" th:href="@{#/syserrors/}">
-                                            <strong>See All Alerts</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
+                                <li>
+                                    <a class="text-center" th:href="@{#/syserrors/}">
+                                        <strong>See All Alerts</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>
 
-                                </p>
 
 
                             </ul>
@@ -111,18 +109,6 @@
                             <ul class="nav" id="side-menu">
                                 <li>
                                     <a th:href="@{#/}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Visualization<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-second-level">
-                                        <li>
-                                            <a th:href="@{#/visual/now}"><i class="fa fa-spinner fa-spin fa-fw"></i> Realtime</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{#/visual/history}"><i class="fa fa-history fa-fw"></i> History</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-second-level -->
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Management<span class="fa arrow"></span></a>
@@ -160,7 +146,7 @@
             </div>
             <div id="page-wrapper">
                 <div class="container-fluid">
-					<div id="error_container"></div>
+                    <div id="error_container"></div>
                     <div ng-view></div>
                 </div>
             </div>
@@ -187,18 +173,18 @@
 
         <script th:attr="src=@{/dist/js/sb-admin-2.js}"></script>
 
-        <script th:attr="src=@{/js/ngapp.js}"></script>
-        <script th:attr="src=@{/js/controllers/front_controller.js}"></script>
-        <script th:attr="src=@{/js/controllers/visual_realtime_controller.js}"></script>
-        <script th:attr="src=@{/js/information_sources/information_source_services.js}"></script>
-        <script th:attr="src=@{/js/information_sources/information_source_controllers.js}"></script>
-        <script th:attr="src=@{/js/configurations/configuration_services.js}"></script>
-        <script th:attr="src=@{/js/configurations/configuration_controllers.js}"></script>
-        <script th:attr="src=@{/js/syserrors/syserror_services.js}"></script>
-        <script th:attr="src=@{/js/syserrors/syserror_controllers.js}"></script>
+        <script th:attr="src=@{/ngapp.js}"></script>
+        <script th:attr="src=@{/front_controller.js}"></script>
+        <script th:attr="src=@{/information_sources/visual_realtime_controller.js}"></script>
+        <script th:attr="src=@{/information_sources/information_source_services.js}"></script>
+        <script th:attr="src=@{/information_sources/information_source_controllers.js}"></script>
+        <script th:attr="src=@{/configurations/configuration_services.js}"></script>
+        <script th:attr="src=@{/configurations/configuration_controllers.js}"></script>
+        <script th:attr="src=@{/syserrors/syserror_services.js}"></script>
+        <script th:attr="src=@{/syserrors/syserror_controllers.js}"></script>
         <script th:attr="src=@{/bower_components/angular-bootstrap/ui-bootstrap.min.js}"></script>
         <script th:attr="src=@{/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js}"></script>
-        <script th:attr="src=@{/js/directives/slider.js}"></script>
+        <script th:attr="src=@{/directives/slider.js}"></script>
 
         <!--        Angular Moment-->
         <script th:attr="src=@{/bower_components/moment/moment.js}"></script>

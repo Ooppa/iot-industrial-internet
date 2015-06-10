@@ -6,47 +6,65 @@
  */
 package fi.iot.iiframework.source;
 
-import fi.iot.iiframework.datasourcereaders.InformationSourceReader;
-import fi.iot.iiframework.domain.InformationSourceObject;
-import fi.iot.iiframework.services.domain.InformationSourceObjectService;
-import org.junit.After;
-import org.junit.AfterClass;
+import fi.iot.iiframework.domain.InformationSourceConfiguration;
+import fi.iot.iiframework.domain.Sensor;
+import fi.iot.iiframework.readers.InformationSourceReader;
+import fi.iot.iiframework.services.domain.InformationSourceObjectProvider;
+import fi.iot.iiframework.services.domain.SensorService;
+import java.io.IOException;
+import java.util.List;
+import javax.xml.bind.JAXBException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.mockito.Matchers;
+import org.mockito.Mock;
+import static org.mockito.Mockito.*;
+import org.mockito.MockitoAnnotations;
 
 public class InformationSourceImplTest {
 
-    private InformationSourceImpl impl;
+    private InformationSource source;
     private InformationSourceConfiguration config;
-    private InformationSourceReader reader;
-    private InformationSourceObjectService service;
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-
+    @Mock
+    private SensorService mockService;
+    @Mock
+    private ReadScheduler mockScheduler;
+    @Mock
+    private InformationSourceReader mockReader;
+    
+    private List<Sensor> examples;
 
     @Before
-    public void setUp() {
+    public void setUp() throws JAXBException, IOException {
+        MockitoAnnotations.initMocks(this);
         config = new InformationSourceConfiguration();
-        config.type = InformationSourceType.XML;
-        config.readFrequency = 11;
-        config.name = "test";
-        config.type = InformationSourceType.XML;
-        config.url = "http://t-teesalmi.users.cs.helsinki.fi/MafiaTools/source.xml";
-        impl = new InformationSourceImpl(config, service);
+        config.setReadFrequency(0);
+        config.setActive(false);
+        config.setReadFrequency(11);
+        config.setName("test");
+        config.setType(InformationSourceType.XML);
+        config.setUrl("http://t-teesalmi.users.cs.helsinki.fi/MafiaTools/source.xml");
 
+        source = new InformationSourceImpl(config, mockService);
+        source.setReader(mockReader);
+        source.setScheduler(mockScheduler);
+        
+        examples = InformationSourceObjectProvider.provideSensorsWithChildren();
+        
+        when(mockReader.read(Matchers.anyString())).thenReturn(examples);
     }
 
     @Test
-    public void canCreateAnXMLReader() {
-//        assertNotEquals(null, impl);
+    public void readReadsSuccesfullyFromReader() throws JAXBException, IOException {
+        examples.forEach(s ->{
+            assertTrue(source.read().contains(s));
+        });
+    }
+    
+    @Test
+    public void readAndWriteWritesTheReadObjectToDatabase() {
+        source.readAndWrite();
+        verify(mockService).save(examples);
     }
 }

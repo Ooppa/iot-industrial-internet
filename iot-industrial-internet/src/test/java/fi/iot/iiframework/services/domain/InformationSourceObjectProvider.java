@@ -6,12 +6,13 @@
  */
 package fi.iot.iiframework.services.domain;
 
-import fi.iot.iiframework.domain.InformationSourceObject;
-import fi.iot.iiframework.domain.Device;
+import fi.iot.iiframework.domain.InformationSourceConfiguration;
 import fi.iot.iiframework.domain.Readout;
 import fi.iot.iiframework.domain.Sensor;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
@@ -22,25 +23,17 @@ import java.util.UUID;
  */
 public class InformationSourceObjectProvider {
 
-    public static InformationSourceObject provideDataObject() {
-        java.util.Locale.setDefault(Locale.ENGLISH);
-        InformationSourceObject obj = new InformationSourceObject();
+    public static List<Sensor> provideSensorsWithChildren() {
+        List<Sensor> sensors = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            Sensor s = provideSensor();
+            for (int j = 0; j < 3; j++) {
+                s.getReadouts().add(provideReadout(s));
+            }
+            sensors.add(s);
+        }
 
-        obj.setId(getUUID());
-        obj.setDevices(new HashSet<>());
-
-        return obj;
-    }
-
-
-    public static Device provideDevice() {
-        Device device = new Device();
-
-        device.setDeviceId(getUUID());
-        device.setStatus(true);
-        device.setSensors(new HashSet<>());
-
-        return device;
+        return sensors;
     }
 
     public static Sensor provideSensor() {
@@ -49,6 +42,12 @@ public class InformationSourceObjectProvider {
         sensor.setReadouts(new HashSet<>());
 
         return sensor;
+    }
+
+    private static Readout provideReadout(Sensor s) {
+        Readout r = provideReadout();
+        r.setSensor(s);
+        return r;
     }
 
     public static Readout provideReadout() {

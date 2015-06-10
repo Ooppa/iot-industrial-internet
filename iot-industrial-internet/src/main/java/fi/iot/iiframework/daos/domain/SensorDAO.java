@@ -7,7 +7,7 @@
 package fi.iot.iiframework.daos.domain;
 
 import fi.iot.iiframework.daos.GenericDAO;
-import fi.iot.iiframework.domain.Device;
+import fi.iot.iiframework.domain.InformationSourceConfiguration;
 import fi.iot.iiframework.domain.Sensor;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface SensorDAO extends GenericDAO<Sensor, String> {
 
-    public List<Sensor> getBy(Device device);
+    public List<Sensor> getBy(InformationSourceConfiguration source);
 
-    public List<Sensor> getBy(int from, int to, Device device);
+    public List<Sensor> getBy(int from, int to, InformationSourceConfiguration source);
 }

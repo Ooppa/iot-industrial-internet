@@ -12,6 +12,8 @@ import org.hibernate.criterion.Criterion;
 
 public interface GenericService<T, ID extends Serializable> {
     public void save(T t);
+    
+    public void save(List<T> lt);
 
     public T get(ID id);
     
@@ -26,4 +28,5 @@ public interface GenericService<T, ID extends Serializable> {
     public Long countByCriteria(List<Criterion> criterion);
     
     public Long count();
+    
 }

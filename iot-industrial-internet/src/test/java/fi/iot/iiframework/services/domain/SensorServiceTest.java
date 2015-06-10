@@ -7,9 +7,9 @@
 package fi.iot.iiframework.services.domain;
 
 import fi.iot.iiframework.application.TestConfig;
-import fi.iot.iiframework.domain.InformationSourceObject;
-import fi.iot.iiframework.domain.Device;
+import fi.iot.iiframework.domain.InformationSourceConfiguration;
 import fi.iot.iiframework.domain.Sensor;
+import java.util.HashSet;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -30,8 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SensorServiceTest {
 
-    Device d1;
-    Device d2;
+    InformationSourceConfiguration i1;
+    InformationSourceConfiguration i2;
 
     Sensor s1;
     Sensor s2;
@@ -39,27 +39,32 @@ public class SensorServiceTest {
     @Autowired
     private SensorService service;
 
+    @Autowired
+    private InformationSourceConfigurationService sourceService;
+
     @Before
     public void setUp() {
-        InformationSourceObject dso = InformationSourceObjectProvider.provideDataObject();
-
-        d1 = InformationSourceObjectProvider.provideDevice();
-        d2 = InformationSourceObjectProvider.provideDevice();
-        d1.setSource(dso);
-        d2.setSource(dso);
+        i1 = new InformationSourceConfiguration();
+        i1.setSensors(new HashSet<>());
+        i2 = new InformationSourceConfiguration();
+        i2.setSensors(new HashSet<>());
 
         s1 = InformationSourceObjectProvider.provideSensor();
         s2 = InformationSourceObjectProvider.provideSensor();
-        s1.setDevice(d1);
-        s2.setDevice(d2);
-
-        service.save(s1);
-        service.save(s2);
+        s1.setSource(i1);
+        s2.setSource(i2);
+        
+        i1.getSensors().add(s1);
+        i2.getSensors().add(s2);
     }
 
     @Test
-    public void sensorsCanBeFoundByDevice() {
-        List<Sensor> sensors = service.getBy(d1);
+    public void sensorsCanBeFoundBySource() {
+        sourceService.save(i1);
+        sourceService.save(i2);
+
+        List<Sensor> sensors = service.getBy(i1);
+        assertEquals(1, sensors.size());
         assertTrue(sensors.contains(s1));
         assertFalse(sensors.contains(s2));
     }
@@ -78,6 +83,9 @@ public class SensorServiceTest {
 
     @Test
     public void allSensorsCanBeRetrieved() {
+        service.save(s1);
+        service.save(s2);
+        
         List<Sensor> sensors = service.getAll();
 
         assertTrue(sensors.contains(s1));
@@ -86,6 +94,8 @@ public class SensorServiceTest {
 
     @Test
     public void sensorsCanBeFoundFromIndexToIndex() {
+        service.save(s1);
+        service.save(s2);
         List<Sensor> sensors = service.get(0, 0);
 
         assertEquals(1, sensors.size());
@@ -93,11 +103,15 @@ public class SensorServiceTest {
 
     @Test
     public void sensorsCanBeCounted() {
+        service.save(s1);
+        service.save(s2);
         assertEquals(2, (long) service.count());
     }
 
     @Test
-    public void sensorsCanBeCountedByDevice() {
-        assertEquals(1, (long) service.countBy(d1));
+    public void sensorsCanBeCountedBySource() {
+        sourceService.save(i1);
+        sourceService.save(i2);
+        assertEquals(1, (long) service.countBy(i1));
     }
 }

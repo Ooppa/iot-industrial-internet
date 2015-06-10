@@ -10,8 +10,8 @@ import fi.iot.iiframework.errors.ErrorLogger;
 import fi.iot.iiframework.errors.ErrorSeverity;
 import fi.iot.iiframework.errors.ErrorType;
 import fi.iot.iiframework.errors.SysError;
-import fi.iot.iiframework.source.InformationSourceConfiguration;
-import fi.iot.iiframework.source.InformationSourceManager;
+import fi.iot.iiframework.domain.InformationSourceConfiguration;
+import fi.iot.iiframework.source.InformationSourceManagerImpl;
 import fi.iot.iiframework.source.InformationSourceType;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -38,16 +38,16 @@ public class Application {
     }
 
     private static void initTestData(ApplicationContext ctx) throws JAXBException, IOException {
-        InformationSourceManager infSourceManager = ctx.getBean(InformationSourceManager.class);
+        InformationSourceManagerImpl infSourceManager = ctx.getBean(InformationSourceManagerImpl.class);
 
         InformationSourceConfiguration config = new InformationSourceConfiguration();
         config.setName("Example Config");
         config.setType(InformationSourceType.XML);
-        config.setUrl("http://axwikstr.users.cs.helsinki.fi/data.xml");
+        config.setUrl("http://t-teesalmi.users.cs.helsinki.fi/MafiaTools/source.xml");
         config.setActive(true);
         config.setReadFrequency(100 * 1000);
         infSourceManager.createSource(config);
-        
+
         SysError e = new SysError(ErrorType.UNKNOWN_ERROR, ErrorSeverity.NOTIFICATION, "This is a test error");
         ErrorLogger.log(e);
 
@@ -59,5 +59,19 @@ public class Application {
 
         SysError e4 = new SysError(ErrorType.BAD_REQUEST, ErrorSeverity.NOTIFICATION, "This is an another test error");
         ErrorLogger.log(e4);
+
+        /*        
+        DeviceConfigurationService deviceConfService = ctx.getBean(DeviceConfigurationService.class);
+        DeviceService seviceServiceImpl = ctx.getBean(DeviceService.class);
+        
+        Device device = seviceServiceImpl.getAll().get(0);
+        
+        DeviceConfiguration conf = new DeviceConfiguration();
+        conf.setDevice(device);
+        conf.setActive(false);
+        
+        deviceConfService.save(conf);
+        */
+
     }
 }

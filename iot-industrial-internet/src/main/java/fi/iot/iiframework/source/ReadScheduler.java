@@ -6,10 +6,6 @@
  */
 package fi.iot.iiframework.source;
 
-/**
- *
- * @author atte
- */
 public interface ReadScheduler {
     public void schedule(int interval, Runnable method);
     public void cancel();

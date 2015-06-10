@@ -66,4 +66,9 @@ public class GenericHibernateService<T, ID extends Serializable>
         return list;
     }
 
+    @Override
+    public void save(List<T> lt) {
+        lt.forEach(t -> dao.save(t));
+    }
+
 }

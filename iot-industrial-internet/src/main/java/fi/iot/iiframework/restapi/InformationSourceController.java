@@ -7,11 +7,11 @@
 package fi.iot.iiframework.restapi;
 
 import fi.iot.iiframework.application.ApplicationSettings;
-import fi.iot.iiframework.domain.InformationSourceObject;
 import fi.iot.iiframework.domain.Header;
+import fi.iot.iiframework.domain.InformationSourceConfiguration;
 import fi.iot.iiframework.restapi.exceptions.InvalidParametersException;
 import fi.iot.iiframework.restapi.exceptions.ResourceNotFoundException;
-import fi.iot.iiframework.services.domain.InformationSourceObjectService;
+import fi.iot.iiframework.services.domain.InformationSourceConfigurationService;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class InformationSourceController {
 
     @Autowired
-    private InformationSourceObjectService informtionSourceService;
+    private InformationSourceConfigurationService informtionSourceService;
 
     @Autowired
     private ApplicationSettings settings;
@@ -36,7 +36,7 @@ public class InformationSourceController {
 
     @RequestMapping(value = "/list", produces = "application/json")
     @ResponseBody
-    public List<InformationSourceObject> listDatasources(
+    public List<InformationSourceConfiguration> listDatasources(
             @RequestParam(required = false) Map<String, String> params
     ) {
         return informtionSourceService.get(0, settings.getDefaultAmountOfDataSourcesRetrievedFromDatabase());
@@ -44,7 +44,7 @@ public class InformationSourceController {
 
     @RequestMapping(value = "/list/{amount}", produces = "application/json")
     @ResponseBody
-    public List<InformationSourceObject> listDatasourcesAmount(
+    public List<InformationSourceConfiguration> listDatasourcesAmount(
             @PathVariable int amount,
             @RequestParam(required = false) Map<String, String> params
     ) throws InvalidParametersException {
@@ -54,7 +54,7 @@ public class InformationSourceController {
 
     @RequestMapping(value = "/list/{from}/{to}", produces = "application/json")
     @ResponseBody
-    public List<InformationSourceObject> listDatasourcesFromTo(
+    public List<InformationSourceConfiguration> listDatasourcesFromTo(
             @PathVariable int from,
             @PathVariable int to,
             @RequestParam(required = false) Map<String, String> params
@@ -65,11 +65,11 @@ public class InformationSourceController {
 
     @RequestMapping(value = "/{informationsourceid}/view", produces = "application/json")
     @ResponseBody
-    public InformationSourceObject getDatasource(
+    public InformationSourceConfiguration getDatasource(
             @PathVariable String informationsourceid,
             @RequestParam(required = false) Map<String, String> params
     ) throws ResourceNotFoundException {
-        return (InformationSourceObject) helper.returnOrException(informtionSourceService.get(informationsourceid));
+        return (InformationSourceConfiguration) helper.returnOrException(informtionSourceService.get(informationsourceid));
     }
 
     @RequestMapping(value = "/{informationsourceid}/header", produces = "application/json")
@@ -77,7 +77,7 @@ public class InformationSourceController {
     public Header getDatasourceHeader(
             @PathVariable String informationsourceid,
             @RequestParam(required = false) Map<String, String> params) throws ResourceNotFoundException {
-        return (Header) helper.returnOrException(informtionSourceService.get(informationsourceid).getHeader());
+        return (Header) helper.returnOrException(informtionSourceService.get(informationsourceid));
     }
 
 }
