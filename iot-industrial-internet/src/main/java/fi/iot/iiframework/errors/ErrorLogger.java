@@ -65,7 +65,6 @@ public class ErrorLogger {
         saveError(error);
     }
 
-
     /**
      * Saves a predefined SysError to the database
      *
@@ -91,12 +90,12 @@ public class ErrorLogger {
     public static List<SysError> getAllErrors() {
         return gService.getAll();
     }
-    
-    private static String sanitizeString(String string){
-        if(string==null||string.length()<2){
+
+    private static String sanitizeString(String string) {
+        if (string == null || string.length() < 2) {
             string = "NaN";
         }
-        
+
         return StringEscapeUtils.escapeHtml4(string);
     }
 

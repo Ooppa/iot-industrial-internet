@@ -10,8 +10,7 @@ import fi.iot.iiframework.daos.GenericDAO;
 import fi.iot.iiframework.errors.SysError;
 
 /**
- * DAO for SysError
- *
+ * DAO for SysError.
  */
 public interface ErrorDAO extends GenericDAO<SysError, Long> {
 

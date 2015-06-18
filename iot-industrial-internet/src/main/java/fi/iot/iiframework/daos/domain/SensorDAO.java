@@ -12,7 +12,7 @@ import fi.iot.iiframework.domain.Sensor;
 import java.util.List;
 
 /**
- * DAO for Sensor
+ * DAO for Sensor.
  */
 public interface SensorDAO extends GenericDAO<Sensor, Long> {
 

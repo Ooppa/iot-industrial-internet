@@ -33,16 +33,16 @@ public enum ReadoutFlag {
 
         return EMPTY;
     }
-    
-    private static boolean atleastOneIs(ValueCondition condition, ValueCondition...compared){
+
+    private static boolean atleastOneIs(ValueCondition condition, ValueCondition... compared) {
         boolean atleastOne = false;
-        
+
         for (ValueCondition compare : compared) {
-            if(compare==condition){
+            if (compare == condition) {
                 atleastOne = true;
             }
         }
-        
+
         return atleastOne;
     }
 }

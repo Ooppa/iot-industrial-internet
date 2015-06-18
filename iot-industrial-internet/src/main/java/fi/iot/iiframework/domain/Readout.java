@@ -21,11 +21,15 @@ import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.SQLInsert;
 
+@Data
 @Entity
+@Table(name = "readouts",
+       uniqueConstraints
+        = @UniqueConstraint(columnNames = {"readout_time", "readout_value", "sensor"}))
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "readout")
-@Data
 @ToString(exclude = {"sensor"})
 public class Readout implements Serializable {
 
@@ -46,23 +50,19 @@ public class Readout implements Serializable {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sensor")
-    @Cascade(CascadeType.SAVE_UPDATE)
     protected Sensor sensor;
-    
+
     protected ReadoutFlag flag;
 
     public Readout() {
-    }
-
-    public Readout(long time, double value) {
-        this.time = time;
-        this.value = value;
+        this.flag = ReadoutFlag.EMPTY;
     }
 
     public Readout(long time, double value, Sensor sensor) {
         this.time = time;
         this.value = value;
         this.sensor = sensor;
+        this.flag = ReadoutFlag.EMPTY;
     }
 
     /**

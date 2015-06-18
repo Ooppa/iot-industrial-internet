@@ -25,10 +25,10 @@ public class MoreThan extends GeneralFilter {
         Double bound = 0.0;
         try {
             bound = Double.parseDouble(filters[0]);
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             ErrorLogger.log(ErrorType.PARSE_ERROR, ErrorSeverity.LOW, "Could not parse double given as a parameter in filter.");
         }
-        
+
         return Restrictions.gt(getField(), bound);
     }
 }

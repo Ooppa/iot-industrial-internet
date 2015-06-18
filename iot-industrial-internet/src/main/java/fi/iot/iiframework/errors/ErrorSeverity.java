@@ -23,17 +23,17 @@ public enum ErrorSeverity {
         this.id = id;
     }
 
-    public int getSeverity() {
-        return this.severity;
-    }
-
     public String getId() {
         return id;
     }
 
+    public int getSeverity() {
+        return this.severity;
+    }
+
     /**
      * Returns ErrorSeverity from the given ID.
-     * 
+     *
      * @param typeid Severity identifier
      * @return ErrorSeverity
      */
@@ -48,14 +48,15 @@ public enum ErrorSeverity {
 
         return ErrorSeverity.NONE;
     }
-    
+
     /**
      * Compares two severities between their importance.
+     *
      * @param first First Severity
      * @param second Second Severity
      * @return -1, 0 or 1
      */
-    public static int compare(ErrorSeverity first, ErrorSeverity second){
+    public static int compare(ErrorSeverity first, ErrorSeverity second) {
         return Integer.compare(first.getSeverity(), second.getSeverity());
     }
 

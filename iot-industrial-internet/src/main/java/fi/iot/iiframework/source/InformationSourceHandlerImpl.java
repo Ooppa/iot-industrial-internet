@@ -81,7 +81,7 @@ public final class InformationSourceHandlerImpl implements InformationSourceHand
                     scheduler.scheduleAtSpecificInterval(2419200000L, source.getStartDate(), source.getEndDate(), this::readAndWrite);
                     break;
                 case OTHER:
-                    scheduler.scheduleAtSpecificInterval(source.getOtherInterval(), source.getStartDate(), source.getEndDate(), this::readAndWrite);
+                    scheduler.scheduleAtSpecificInterval(source.getOtherInterval() * 1000, source.getStartDate(), source.getEndDate(), this::readAndWrite);
                     break;
             }
         }
@@ -103,7 +103,7 @@ public final class InformationSourceHandlerImpl implements InformationSourceHand
             return;
         }
         persistence.updateSource(source);
-        persistence.updateSensorsForSource(source, sensors);
+        persistence.writeReadoutsToSource(source, sensors);
     }
 
     @Override

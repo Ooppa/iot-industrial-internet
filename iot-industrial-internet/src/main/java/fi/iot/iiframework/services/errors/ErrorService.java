@@ -10,11 +10,8 @@ import fi.iot.iiframework.errors.SysError;
 import fi.iot.iiframework.services.GenericService;
 
 /**
- * Service for manipulating errors in database
- * 
+ * Service for manipulating errors in database.
  */
-
 public interface ErrorService extends GenericService<SysError, Long> {
-
 
 }

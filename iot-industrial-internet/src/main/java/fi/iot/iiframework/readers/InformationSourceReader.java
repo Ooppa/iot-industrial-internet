@@ -9,7 +9,6 @@ package fi.iot.iiframework.readers;
 import fi.iot.iiframework.domain.Sensor;
 import java.util.List;
 
-
 /**
  * Defines reader for a InformationSource.
  */

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RestAPIHelper {
-    
+
     /*
      * {from} cannot be negative
      * {to} cannot be negative
@@ -26,7 +26,6 @@ public class RestAPIHelper {
      * {to} cannot be smaller than {from}
      * {from} minus {to} cannot be bigger than default max objects retrieved
      */
-
     public void exceptionIfWrongLimits(int from, int to) throws InvalidParametersException {
         if (from < 0 || to <= 0 || to == from || from > to
                 || (from - to) > 10000) {

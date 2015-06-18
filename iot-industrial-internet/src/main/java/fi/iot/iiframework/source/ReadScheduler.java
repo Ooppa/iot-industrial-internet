@@ -13,7 +13,7 @@ public interface ReadScheduler {
     public void schedule(int interval, Runnable method);
 
     public void scheduleAtSpecificInterval(final long interval, final Date startDate, final Date endDate, final Runnable runnable);
-    
+
     public void scheduleOnlyOnce(final Date startDate, final Runnable runnable);
 
     public void cancel();

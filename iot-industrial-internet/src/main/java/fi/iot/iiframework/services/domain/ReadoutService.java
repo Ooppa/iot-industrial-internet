@@ -12,7 +12,10 @@ import fi.iot.iiframework.services.GenericService;
 import java.util.List;
 
 public interface ReadoutService extends GenericService<Readout, Long> {
+
     public List<Readout> getBy(Sensor sensor);
+
     public List<Readout> getBy(int from, int to, Sensor sensor);
+
     public Long countBy(Sensor sensor);
 }

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 public class ReadoutDAOImpl
         extends GenericHibernateDAO<Readout, Long>
         implements ReadoutDAO {
-    
+
     public ReadoutDAOImpl() {
         super();
         defaultOrder.add(Order.asc("time"));
@@ -41,7 +41,6 @@ public class ReadoutDAOImpl
 
     @Override
     public List<Readout> getBy(int amount, Sensor sensor) {
-        return getBy(0, amount-1, sensor);
+        return getBy(0, amount - 1, sensor);
     }
-    
 }

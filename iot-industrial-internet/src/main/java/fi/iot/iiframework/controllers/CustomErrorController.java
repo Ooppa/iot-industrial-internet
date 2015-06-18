@@ -43,21 +43,21 @@ class CustomErrorController implements ErrorController {
     private void logIfNot404or401Error(Integer statusCode, String exceptionMessage, Throwable throwable, String uri) {
         String trace = "No stacktrace.";
 
-        if(throwable!=null) {
+        if (throwable != null) {
             trace = throwable.getCause().toString();
         }
 
-        if(statusCode!=404||statusCode!=401) {
+        if (statusCode != 404 || statusCode != 401) {
             ErrorLogger.log(
                     ErrorType.HTTP_ERROR,
                     ErrorSeverity.NOTIFICATION,
-                    "User experienced an error ("+exceptionMessage+" - "+statusCode+") :"+trace,
-                    "Occured at: "+uri);
+                    "User experienced an error (" + exceptionMessage + " - " + statusCode + ") :" + trace,
+                    "Occured at: " + uri);
         }
     }
 
     private String getURI(HttpServletRequest request) {
-        if(request.getAttribute("javax.servlet.error.request_uri")==null) {
+        if (request.getAttribute("javax.servlet.error.request_uri") == null) {
             return "Unknown URI";
         }
 
@@ -65,7 +65,7 @@ class CustomErrorController implements ErrorController {
     }
 
     private String getExceptionMessage(Throwable throwable, Integer statusCode) {
-        if(throwable!=null) {
+        if (throwable != null) {
             return Throwables.getRootCause(throwable).getMessage();
         }
         HttpStatus httpStatus = HttpStatus.valueOf(statusCode);

@@ -19,17 +19,17 @@ public class After extends GeneralFilter {
     public After(String field) {
         super(field);
     }
-    
+
     @Override
     public Criterion createCriterion(String... filters) throws ArrayIndexOutOfBoundsException {
         long bound = 0;
         try {
             bound = Long.parseLong(filters[0]);
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             ErrorLogger.log(ErrorType.PARSE_ERROR, ErrorSeverity.LOW, "Could not parse long given as a parameter in filter.");
         }
-        
+
         return Restrictions.gt(getField(), bound);
     }
-    
+
 }

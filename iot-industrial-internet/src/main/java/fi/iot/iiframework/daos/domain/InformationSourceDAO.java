@@ -10,8 +10,10 @@ import fi.iot.iiframework.daos.GenericDAO;
 import fi.iot.iiframework.domain.InformationSource;
 
 /**
- * DAO for InformationSourceConfiguration
+ * DAO for InformationSourceConfiguration.
  */
 public interface InformationSourceDAO extends GenericDAO<InformationSource, Long> {
+
+    public InformationSource getWithSensors(Long id);
 
 }

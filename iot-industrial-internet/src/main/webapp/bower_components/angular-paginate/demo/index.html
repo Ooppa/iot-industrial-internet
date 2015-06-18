@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+  <title>Angular Paginate</title>
+  <style>
+    body {
+      margin:80px 10px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #333333;
+      background-color: #ffffff;
+    }
+
+    .pagination {
+      list-style: none;
+    }
+
+    .pagination li {
+      float: left;
+      padding: 5px;
+      marin: 5px;
+      background: #ccc;
+    }
+
+    .pagination li.active {
+      font-weight: bold;
+      color: white;
+      background: #000;
+    }
+
+    .pagination li.active a {
+      color: white;
+    }
+
+    .pagination li.disabled {
+      opacity: .5;
+    }
+  </style>
+
+  <script type="text/javascript" src="../components/angular/angular.js"></script>
+  <script type="text/javascript" src="../angular-paginate.js"></script>
+  <script>
+    angular.module('demoApp', [
+          'darthwade.dwPaginate'
+        ])
+
+        .config(function($paginateProvider) {
+          $paginateProvider.setTemplateUrl('/angular-paginate/angular-paginate.html');
+        })
+
+        .controller('MainCtrl', function ($scope, $q, $timeout, $paginate) {
+
+          var getNumbers = function() {
+            var deferred = $q.defer();
+
+            $timeout(function() {
+              var numbers = [];
+              for (var i = 0; i < 10; i++) {
+                numbers.push(Math.floor(Math.random() * 11));
+              }
+              deferred.resolve(numbers);
+            }, 20);
+
+            return deferred.promise;
+          };
+
+
+          $scope.loadNumbers = function(page) {
+
+            getNumbers()
+                .then(function(numbers) {
+                  $scope.numbers = $paginate({
+                    $objects: numbers,
+                    $totalCount: numbers.length * 10 + 3,
+                    $page: page,
+                    onPageChange: function() {
+                      $scope.loadNumbers(this.$page);
+                    },
+                    perPage: 10, // Items count per page.
+                    range: 5, // Number of pages neighbouring the current page which will be displayed.
+                    boundaryLinks: true, // Whether to display First / Last buttons.
+                    directionLinks: true, // Whether to display Previous / Next buttons.
+                    rotate: true, // Whether to keep current page in the middle of the visible ones.
+                    paramName: 'page',
+                    previousText: 'Previous', // Text for previous button
+                    nextText: 'Next' // Text for next button
+                  });
+                });
+          };
+
+          $scope.loadNumbers(1);
+        });
+  </script>
+</head>
+<body ng-app="demoApp">
+<div ng-controller="MainCtrl">
+
+  <div class="numbers">
+    <p ng-repeat="number in numbers.$objects track by $index">{{number}}</p>
+  </div>
+
+  <div>{{numbers.$startIndex}}-{{numbers.$endIndex}} of {{numbers.$totalCount}}</div>
+  <div dw-paginate="numbers" class="pagination-sm"></div>
+
+</div>
+</body>
+</html>

@@ -27,7 +27,7 @@ public class ViewParams {
      * Creates a new ViewParams object with default header and footer.
      *
      * @param pagetitle Title for the page
-     * @param content   Content for the page
+     * @param content Content for the page
      */
     public ViewParams(String pagetitle, String content) {
         this.pagetitle = pagetitle;

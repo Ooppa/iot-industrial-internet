@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -80,7 +81,7 @@ public class DomainServiceTest {
 
         i1.getSensors().add(s1);
         i2.getSensors().add(s2);
-        
+
         r1.setSensor(s1);
         r2.setSensor(s1);
         r3.setSensor(s2);
@@ -88,17 +89,17 @@ public class DomainServiceTest {
         sourceService.save(i1);
         sourceService.save(i2);
     }
-    
+
     @Test
     public void informationSourceIsSaved() {
         assertEquals(2, (long) sourceService.count());
     }
-    
+
     @Test
     public void sensorsAreSavedCascading() {
         assertEquals(2, (long) sensorService.count());
     }
-    
+
     @Test
     public void readoutsAreSavedCascading() {
         assertEquals(3, (long) readoutService.count());
@@ -200,13 +201,12 @@ public class DomainServiceTest {
         assertEquals(2, (long) readoutService.getBy(0, 2, criterions).size());
     }
 
-    @Test
-    public void objectsThatAreEqualShouldBeOverwrittenInTheDatabase() {
-        Readout r4 = r1;
+    @Test(expected = ConstraintViolationException.class)
+    public void uniqueConstraintExceptionIsThrown() {
+        Readout r4 = new Readout();
         r4.setTime(r1.getTime());
         r4.setSensor(r1.getSensor());
         r4.setValue(r1.getValue());
         readoutService.save(r4);
-        assertEquals(3, (long) readoutService.count());
     }
 }

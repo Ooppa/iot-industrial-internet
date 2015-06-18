@@ -34,9 +34,9 @@ import org.hibernate.annotations.OnDeleteAction;
  *
  * Configures a information source.
  */
+@Data
 @Entity
 @Table(name = "informationsources")
-@Data
 @EqualsAndHashCode(of = {"url", "type"})
 @ToString(exclude = {"sensors"})
 public class InformationSource implements Serializable, Validatable {
@@ -77,13 +77,13 @@ public class InformationSource implements Serializable, Validatable {
     /**
      * How often read (in seconds).
      */
-    protected int otherInterval;
+    protected long otherInterval;
     /**
      * A specified time to end the reading (date/time).
      */
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     protected Date endDate;
-    
+
     @Column(name = "last_readout")
     protected long lastReadout;
 

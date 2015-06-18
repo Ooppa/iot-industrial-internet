@@ -24,12 +24,12 @@ public class GenericHibernateService<T, ID extends Serializable>
     public T save(T t) {
         return (T) dao.save(t);
     }
-    
+
     @Override
     public T update(T t) {
         return (T) dao.update(t);
     }
-    
+
     @Override
     public T merge(T t) {
         return (T) dao.merge(t);
@@ -69,7 +69,7 @@ public class GenericHibernateService<T, ID extends Serializable>
     public Long count() {
         return countByCriteria(new ArrayList<>());
     }
-    
+
     protected List<Criterion> buildCriterionList(Criterion... criterion) {
         List<Criterion> list = new ArrayList<>();
         list.addAll(Arrays.asList(criterion));
@@ -81,12 +81,12 @@ public class GenericHibernateService<T, ID extends Serializable>
         lt.forEach(t -> dao.save(t));
         return lt;
     }
-    
+
     @Override
     public void flush() {
         dao.flush();
     }
-    
+
     @Override
     public void clear() {
         dao.clear();

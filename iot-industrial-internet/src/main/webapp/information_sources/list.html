@@ -14,6 +14,7 @@
                                 <th>Start Date</th>
                                 <th>Interval</th>
                                 <th>End Date</th>
+                                <th>Last Readout</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -25,6 +26,7 @@
                                 <td ng-if="ds.otherInterval <= 0 || ds.otherInterval === null">{{ds.readInterval}}</td>
                                 <td ng-if="ds.otherInterval > 0">{{ds.readInterval}}: {{ds.otherInterval}}</td>
                                 <td>{{ds.endDate| date: 'dd.MM.yyyy HH:mm'}}</td>
+                                <td>{{ds.lastReadout | date: 'dd.MM.yyyy HH:mm'}}</td>
                                 <td>
                                     <a ng-href="#/sources/{{ds.id}}" class="btn btn-primary btn-xs">View</a>
                                     <a ng-href="#/sources/{{ds.id}}/edit" class="btn btn-warning btn-xs">Edit</a>

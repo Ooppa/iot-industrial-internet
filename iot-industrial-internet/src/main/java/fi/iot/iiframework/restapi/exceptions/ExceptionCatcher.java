@@ -70,7 +70,7 @@ public class ExceptionCatcher {
                         "Object was invalid or wrong type."
                 ), HttpStatus.NOT_ACCEPTABLE);
     }
-    
+
     /**
      * Catches InvalidParametersException created by RestAPI and notifies the
      * user with RestAPIError object that contains an ErrorType and a message.
@@ -83,8 +83,8 @@ public class ExceptionCatcher {
     public ResponseEntity<RestAPIExceptionObject> tooManyRequestsException() {
         return new ResponseEntity<>(
                 new RestAPIExceptionObject(
-                    ErrorType.NOT_ACCEPTED,
-                    "You have performed too many requests in a row, please wait a second before trying again."
+                        ErrorType.NOT_ACCEPTED,
+                        "You have performed too many requests in a row, please wait a second before trying again."
                 ), HttpStatus.TOO_MANY_REQUESTS);
     }
 

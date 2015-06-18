@@ -43,7 +43,7 @@ public class SensorController {
     ) throws ResourceNotFoundException {
         return (Sensor) helper.returnOrException(sensorService.get(sensorid));
     }
-    
+
     @Secured("ROLE_MODERATOR")
     @RequestMapping(
             value = "/{sensorid}/edit",

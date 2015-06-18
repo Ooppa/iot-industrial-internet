@@ -19,8 +19,20 @@ public class InformationSourceServiceImpl
         extends GenericHibernateService<InformationSource, Long>
         implements InformationSourceService {
 
+    InformationSourceDAO informationSourceDAO;
+    
     @Autowired
     public InformationSourceServiceImpl(InformationSourceDAO dao) {
         super.dao = dao;
+        informationSourceDAO = dao;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    @Override
+    public InformationSource getWithSensors(Long id) {
+        return informationSourceDAO.getWithSensors(id);
     }
 }

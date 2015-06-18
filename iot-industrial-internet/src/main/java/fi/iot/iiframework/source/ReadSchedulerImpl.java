@@ -35,6 +35,9 @@ public class ReadSchedulerImpl implements ReadScheduler {
 
             @Override
             public void run() {
+                if (endDate != null && new Date().after(endDate)) {
+                    timer.cancel();
+                }
                 runnable.run();
             }
 

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * Creates and manages objects that represent external data sources
+ * Creates and manages objects that represent external data sources.
  */
 @Service
 public class InformationSourceManager {
@@ -65,7 +65,7 @@ public class InformationSourceManager {
     /**
      * Returns map of sources.
      *
-     * @return
+     * @return Map of InformationSourceHandlers
      */
     public Map<Long, InformationSourceHandler> getSources() {
         return sources;

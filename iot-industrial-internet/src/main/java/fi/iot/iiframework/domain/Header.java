@@ -14,9 +14,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class Header {
+
     @XmlElement
     protected String response;
-    
+
     @XmlElement
     protected int uptime;
 
@@ -38,5 +39,5 @@ public class Header {
     public void setUptime(int uptime) {
         this.uptime = uptime;
     }
-    
+
 }

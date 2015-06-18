@@ -18,35 +18,40 @@ public interface InformationSourcePersistence {
 
     /**
      * Loads all InformationSources from the database.
-     * @return 
+     *
+     * @return List of InformationSources
      */
-    List<InformationSource> loadSourcesFromDB();
+    public List<InformationSource> loadSourcesFromDB();
 
     /**
      * Update InformationSources with read sensors and their readouts.
+     *
      * @param source
-     * @param sensors 
-     * @return  
+     * @param sensors
+     * @return
      */
-    InformationSource updateSensorsForSource(InformationSource source, List<Sensor> sensors);
+    public InformationSource writeReadoutsToSource(InformationSource source, List<Sensor> sensors);
 
     /**
      * Updates an InformationSources fields in the database.
+     *
      * @param source
-     * @return 
+     * @return
      */
-    InformationSource updateSource(InformationSource source);
+    public InformationSource updateSource(InformationSource source);
 
     /**
      * Adds a new InformationSource to the database
+     *
      * @param source
-     * @return 
+     * @return
      */
-    InformationSource addSource(InformationSource source);
+    public InformationSource addSource(InformationSource source);
 
     /**
      * Deletes a source from the database.
-     * @param source 
+     *
+     * @param source
      */
-    void deleteSource(InformationSource source);
+    public void deleteSource(InformationSource source);
 }

@@ -263,7 +263,6 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.10</version>
             </plugin>
-            
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>2.5</version>
@@ -278,7 +277,6 @@
                     </filesets>
                 </configuration>
             </plugin>
-            
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -298,7 +296,6 @@
                     </execution>
                 </executions>
             </plugin>
-            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -306,7 +303,14 @@
                 <executions>
                 </executions>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <configLocation>checks.xml</configLocation>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

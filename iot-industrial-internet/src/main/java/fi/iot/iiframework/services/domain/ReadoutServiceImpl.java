@@ -22,7 +22,7 @@ public class ReadoutServiceImpl
         extends GenericHibernateService<Readout, Long>
         implements ReadoutService {
 
-    ReadoutDAO readoutDAO;
+    private final ReadoutDAO readoutDAO;
 
     @Autowired
     public ReadoutServiceImpl(ReadoutDAO dao) {
@@ -46,5 +46,4 @@ public class ReadoutServiceImpl
                 buildCriterionList(Restrictions.eq("sensor", sensor))
         );
     }
-
 }

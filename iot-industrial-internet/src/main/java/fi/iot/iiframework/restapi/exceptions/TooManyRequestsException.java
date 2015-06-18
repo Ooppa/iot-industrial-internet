@@ -22,5 +22,5 @@ public class TooManyRequestsException extends Exception {
     public TooManyRequestsException(String message, Throwable cause) {
         super(message, cause);
     }
-    
+
 }

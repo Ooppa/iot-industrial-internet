@@ -10,9 +10,10 @@ import lombok.Data;
 
 @Data
 public class StatObject {
-    private String name;
-    private String description;
-    private Object value; 
+
+    private final String name;
+    private final String description;
+    private final Object value;
 
     public StatObject(String name, String description, Object value) {
         this.name = name;

@@ -6,11 +6,9 @@
  */
 package fi.iot.iiframework.services.errors;
 
-import fi.iot.iiframework.daos.GenericDAO;
 import fi.iot.iiframework.errors.SysError;
 import fi.iot.iiframework.daos.errors.ErrorDAO;
 import fi.iot.iiframework.services.GenericHibernateService;
-import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 public class ErrorServiceImpl extends GenericHibernateService<SysError, Long> implements ErrorService {
-    
+
     @Autowired
     public ErrorServiceImpl(ErrorDAO dao) {
         super.dao = dao;

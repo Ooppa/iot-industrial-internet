@@ -1,8 +1,11 @@
 <div class="row">
-    <div class="col-lg-12">
+    <h1>{{header}}</h1>
+    <div class="col-lg-6">
         <div class="panel panel-default">
+            <div class="panel-heading">
+                General options
+            </div>
             <div class="panel-body">
-
                 <form role="form">
                     <div class="form-group">
                         <label>Name</label>
@@ -22,50 +25,67 @@
                         <p class="help-block">Information source URL</p>
                     </div>
 
-                    <div>
+                    <button id="submitbutton" type="button" class="btn btn-info btn-circle btn-xl" ng-click="submit()"><i class="fa fa-check"></i>
+                    </button>
+                    <button id="backbutton" type="button" class="btn btn-danger btn-circle btn-xl" ng-click="back()"><i class="fa fa-mail-reply"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Scheduler options
+            </div>
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group">
                         <label>Start Date (yyyy-mm-dd)</label>
-                        <div>
-                            <p class="input-group">
-                                <input type="date" class="form-control" datepicker-popup ng-model="startDate" is-open="opened" min-date="minDate" max-date="'2300-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>
-                            </p>
+                        <div class="input-group">
+                            <input type="date" class="form-control" datepicker-popup ng-model="startDate" is-open="opened" min-date="minDate" max-date="'2300-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
                         </div>
+                    </div>
+
+                    <div class="form-group">
                         <label>Start Time (hh:mm)</label>
                         <timepicker ng-model="startDate" show-meridian="false"></timepicker>
-                        <label>Repeat?</label>
+                    </div>
+
+                    <div  class="form-group">      
+                        <label>When to repeat?</label>
                         <div class="btn-group">
-                            <label class="btn btn-primary" type="radio" ng-model="radioModel" value="NEVER" btn-radio="'NEVER'">Never</label>
-                            <label class="btn btn-primary" type="radio" ng-model="radioModel" value="HOURLY" btn-radio="'HOURLY'">Hourly</label>
-                            <label class="btn btn-primary" type="radio" ng-model="radioModel" value="DAILY" btn-radio="'DAILY'">Daily</label>
-                            <label class="btn btn-primary" type="radio" ng-model="radioModel" value="WEEKLY" btn-radio="'WEEKLY'">Weekly</label>
-                            <label class="btn btn-primary" type="radio" ng-model="radioModel" value="MONTHLY" btn-radio="'MONTHLY'">Monthly</label>
-                            <label class="btn btn-primary" type="radio" ng-model="radioModel" value="OTHER" btn-radio="'OTHER'">Other</label>
+                            <label class="btn btn-default" type="radio" ng-model="radioModel" value="NEVER" btn-radio="'NEVER'">Never</label>
+                            <label class="btn btn-default" type="radio" ng-model="radioModel" value="HOURLY" btn-radio="'HOURLY'">Hourly</label>
+                            <label class="btn btn-default" type="radio" ng-model="radioModel" value="DAILY" btn-radio="'DAILY'">Daily</label>
+                            <label class="btn btn-default" type="radio" ng-model="radioModel" value="WEEKLY" btn-radio="'WEEKLY'">Weekly</label>
+                            <label class="btn btn-default" type="radio" ng-model="radioModel" value="MONTHLY" btn-radio="'MONTHLY'">Monthly</label>
+                            <label class="btn btn-default" type="radio" ng-model="radioModel" value="OTHER" btn-radio="'OTHER'">Other</label>
                         </div>
-                        <div ng-show="radioModel === 'OTHER'" class="input-group">
+                    </div>
+
+                    <div ng-show="radioModel === 'OTHER'" class="form-group">    
+                        <div class="input-group">
                             <input type="text" class="form-control" name="otherInterval" ng-model="otherInterval" placeholder="Read Interval as Seconds" />
                             <span class="input-group-addon">seconds</span>
                         </div>
-                        <br>
+                    </div>
+
+                    <div class="form-group">
                         <label>Repeat Until</label>
-                        <p class="input-group">
+                        <div class="input-group">
                             <input type="date" class="form-control" datepicker-popup ng-model="endDate" is-open="opened" min-date="minDate" max-date="'2300-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
-                        </p>
+                        </div>
                     </div>
-                    <br>
-                    <div>
-                        <button id="submitbutton" type="button" class="btn btn-info btn-circle btn-xl" ng-click="submit()"><i class="fa fa-check"></i>
-                        </button>
-                        <button id="backbutton" type="button" class="btn btn-danger btn-circle btn-xl" ng-click="back()"><i class="fa fa-mail-reply"></i>
-                        </button>
-                    </div>
-                </form>
             </div>
         </div>
-
     </div>
+
 </div>

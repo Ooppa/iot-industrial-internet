@@ -1,7 +1,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1>Source {{source.id}}</h1>
+        <h1>Source {{source.name}}</h1>
 
 
         <div class="panel-group" id="accordion">
@@ -12,6 +12,8 @@
                             <th>Name</th>
                             <th>Quantity</th>
                             <th>Unit</th>
+                            <th>Active</th>
+                            <th>Thresholds</th>
                             <th>Readouts</th>
                         </tr>
                     </thead>
@@ -20,6 +22,21 @@
                             <td>{{sensor.name}}</td>
                             <td>{{sensor.quantity}}</td>
                             <td>{{sensor.unit}}</td>
+                            <td>
+                                <span ng-if="sensor.active" >
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>    
+                                </span>
+                                <span ng-if="!sensor.active">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>    
+                                </span>
+                            </td>       
+                            <td>
+                                <span ng-if="sensor.thresholdMin === null" >undefined</span>
+                                <span ng-if="sensor.thresholdMin !== null" >{{sensor.thresholdMin}}</span>
+                                <span style="font-weight:bold">to</span> 
+                                <span ng-if="sensor.thresholdMax === null" >undefined</span>
+                                <span ng-if="sensor.thresholdMax !== null" >{{sensor.thresholdMax}}</span>
+                            </td>
                             <td>
                                 <a type="button" class="btn btn-info btn-xs" ng-href="#/visual/now/{{sensor.id}}">Graph</a>
                                 <a type="button" class="btn btn-primary btn-xs" ng-href="#/sensors/{{sensor.id}}">List</a>

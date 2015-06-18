@@ -15,24 +15,27 @@ public interface SensorService extends GenericService<Sensor, Long> {
 
     /**
      * Gets all sensors associated with the given configuration.
+     *
      * @param source
-     * @return 
+     * @return
      */
     public List<Sensor> getBy(InformationSource source);
 
     /**
      * Gets sensors associated with the given device from the given range.
+     *
      * @param from
      * @param to
      * @param source
-     * @return 
+     * @return
      */
     public List<Sensor> getBy(int from, int to, InformationSource source);
-    
+
     /**
      * Returns number of sensors associated with the given device
+     *
      * @param source
-     * @return 
+     * @return
      */
     public Long countBy(InformationSource source);
 }

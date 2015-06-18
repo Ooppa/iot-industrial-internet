@@ -6,10 +6,10 @@
  */
 package fi.iot.iiframework.mutator;
 
-import fi.iot.iiframework.domain.InformationSource;
+import fi.iot.iiframework.domain.Sensor;
 
 public interface Mutator {
 
-    public void mutateAll(InformationSource source);
+    public void mutateAll(Sensor sensor);
 
 }

@@ -13,6 +13,7 @@ import fi.iot.iiframework.errors.ErrorType;
 import fi.iot.iiframework.restapi.exceptions.InvalidObjectException;
 import fi.iot.iiframework.restapi.exceptions.InvalidParametersException;
 import fi.iot.iiframework.restapi.exceptions.ResourceNotFoundException;
+import fi.iot.iiframework.restapi.exceptions.RestAPIExceptionObject;
 import fi.iot.iiframework.restapi.exceptions.TooManyRequestsException;
 import fi.iot.iiframework.services.domain.InformationSourceService;
 import fi.iot.iiframework.source.InformationSourceManager;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("1.0/sources")
 public class InformationSourceController {
-    
+
     /**
      * Keeps track of when a source was last read.
      */
@@ -141,7 +142,7 @@ public class InformationSourceController {
     @Secured({"ROLE_MODERATOR"})
     @RequestMapping(value = "/{sourceid}/read", produces = "application/json")
     @ResponseBody
-    public String readInformationSource(
+    public ResponseEntity<SuccessObject> readInformationSource(
             @PathVariable long sourceid
     ) throws TooManyRequestsException {
         if (lastRequests.containsKey(sourceid) && lastRequestTooClose(sourceid)) {
@@ -156,8 +157,7 @@ public class InformationSourceController {
 
         informationSourceManager.readSource(sourceid);
         lastRequests.put(sourceid, System.currentTimeMillis());
-
-        return "Source ["+ sourceid +"] was read successfully.";
+        return new ResponseEntity<>(new SuccessObject("Source [" + sourceid + "] was read successfully."), HttpStatus.OK);
     }
 
     private boolean lastRequestTooClose(long sourceid) {

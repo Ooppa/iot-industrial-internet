@@ -15,7 +15,7 @@ public class EqualsErrorType extends GeneralFilter {
     public EqualsErrorType(String field) {
         super(field);
     }
-    
+
     @Override
     public Criterion createCriterion(String... filters) throws ArrayIndexOutOfBoundsException {
         return Restrictions.eq(getField(), ErrorType.getType(filters[0]));

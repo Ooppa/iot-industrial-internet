@@ -9,10 +9,7 @@ package fi.iot.iiframework.source;
 import fi.iot.iiframework.domain.InformationSource;
 import fi.iot.iiframework.domain.Sensor;
 import fi.iot.iiframework.readers.InformationSourceReader;
-import java.net.MalformedURLException;
 import java.util.List;
-import javax.xml.bind.JAXBException;
-import org.springframework.scheduling.annotation.Async;
 
 /**
  *
@@ -21,7 +18,7 @@ import org.springframework.scheduling.annotation.Async;
 public interface InformationSourceHandler {
 
     /**
-     * Read a source from the reader
+     * Read a source from the reader.
      *
      * @return InformationSourceObject read from URL and parsed
      */
@@ -54,7 +51,7 @@ public interface InformationSourceHandler {
     public void close();
 
     /**
-     * Manually set
+     * Manually set.
      *
      * @param mockReader
      */

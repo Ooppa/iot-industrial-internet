@@ -15,7 +15,7 @@ public class EqualsErrorSeverity extends GeneralFilter {
     public EqualsErrorSeverity(String field) {
         super(field);
     }
-    
+
     @Override
     public Criterion createCriterion(String... filters) throws ArrayIndexOutOfBoundsException {
         return Restrictions.eq(getField(), ErrorSeverity.getType(filters[0]));

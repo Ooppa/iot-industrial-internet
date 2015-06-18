@@ -24,7 +24,7 @@ public abstract class GeneralFilter {
     /**
      * Returns the name of the field this Filter is attached to.
      *
-     * @return
+     * @return Field
      */
     public String getField() {
         return field;
@@ -41,7 +41,6 @@ public abstract class GeneralFilter {
      */
     public Criterion createCriterion(String... filters) throws ArrayIndexOutOfBoundsException {
         return null; // on default doesn't return anything
-    }
-;
+    };
 
 }

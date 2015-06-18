@@ -22,7 +22,7 @@ public class SensorServiceImpl
         extends GenericHibernateService<Sensor, Long>
         implements SensorService {
 
-    SensorDAO sensorDAO;
+    private SensorDAO sensorDAO;
 
     @Autowired
     public SensorServiceImpl(SensorDAO dao) {

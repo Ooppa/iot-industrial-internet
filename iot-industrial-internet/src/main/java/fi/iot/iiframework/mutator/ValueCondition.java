@@ -14,7 +14,7 @@ public enum ValueCondition {
     LOWER_THAN_OR_EQUALS("lower than or equals"),
     EQUALS("equal to"),
     NOT_EQUALS("not equal to");
-    
+
     private final String literal;
 
     private ValueCondition(String literal) {

@@ -54,8 +54,7 @@
 
 
                             <ul class="dropdown-menu dropdown-alerts" >
-
-                                <li ng-repeat="error in alarmlist | limitTo:5">
+                                <li ng-repeat="error in alarmlist| limitTo:5">
                                     <a href="#/syserrors/{{error.id}}">
                                         <div>
                                             <div ng-if="error.severity == 'FATAL'">
@@ -69,10 +68,11 @@
                                         </div>
                                     </a>
                                 </li>
+                                <li ng-if="alarmlist.length === 0" class="text-center"><i class="text-muted">No errors...</i></li>
 
                                 <li>
                                     <a class="text-center" th:href="@{#/syserrors/}">
-                                        <strong>See All Alerts</strong>
+                                        <strong>See All Errors</strong>
                                         <i class="fa fa-angle-right"></i>
                                     </a>
                                 </li>

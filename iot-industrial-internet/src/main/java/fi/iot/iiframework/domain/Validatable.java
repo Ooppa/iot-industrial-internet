@@ -7,5 +7,6 @@
 package fi.iot.iiframework.domain;
 
 public interface Validatable {
+
     public boolean isValid();
 }

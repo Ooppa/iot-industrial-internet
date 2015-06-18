@@ -88,10 +88,10 @@ public class HibernateConfiguration {
     @Autowired
     @Bean
     @Primary
-    public HibernateTransactionManager transactionManager(
-            SessionFactory sessionFactory) {
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager(
-                sessionFactory);
+                sessionFactory
+        );
 
         return transactionManager;
     }

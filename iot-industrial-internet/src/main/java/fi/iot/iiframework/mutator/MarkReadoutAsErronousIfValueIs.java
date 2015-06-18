@@ -6,6 +6,7 @@
  */
 package fi.iot.iiframework.mutator;
 
+import fi.iot.iiframework.application.Application;
 import fi.iot.iiframework.domain.InformationSource;
 import fi.iot.iiframework.domain.Readout;
 import fi.iot.iiframework.domain.ReadoutFlag;
@@ -14,6 +15,7 @@ import fi.iot.iiframework.errors.ErrorLogger;
 import fi.iot.iiframework.errors.ErrorSeverity;
 import fi.iot.iiframework.errors.ErrorType;
 import fi.iot.iiframework.errors.SysError;
+import java.util.logging.Level;
 
 public class MarkReadoutAsErronousIfValueIs implements Mutator {
 
@@ -24,18 +26,7 @@ public class MarkReadoutAsErronousIfValueIs implements Mutator {
     }
 
     @Override
-    public void mutateAll(InformationSource source) {
-        for (Sensor sensor : source.getSensors()) {
-            mutateOneSensor(sensor);
-        }
-    }
-
-    /**
-     * Mutates one sensor by calling mutateOneReadout for each readout
-     *
-     * @param sensor Sensor to mutate
-     */
-    public void mutateOneSensor(Sensor sensor) {
+    public void mutateAll(Sensor sensor) {
         for (Readout readout : sensor.getReadouts()) {
             try {
                 if (condition == ValueCondition.HIGHER_THAN) {
@@ -43,9 +34,8 @@ public class MarkReadoutAsErronousIfValueIs implements Mutator {
                 } else if (condition == ValueCondition.LOWER_THAN) {
                     mutateOneReadout(readout, condition, sensor.getThresholdMin());
                 }
-
-                mutateOneReadout(readout, condition, 1.0);
             } catch (NullPointerException npe) {
+                Application.logger.log(Level.INFO, "Catched a NullPointerException while mutating one sensor.");
             }
         }
     }
@@ -56,13 +46,16 @@ public class MarkReadoutAsErronousIfValueIs implements Mutator {
      *
      * @param readout Readout to mutate
      * @param condition Condition to mutate the Readout by
-     * @param theshold Threshold for the mutation
+     * @param threshold Threshold for the mutation
      */
-    public void mutateOneReadout(Readout readout, ValueCondition condition, double theshold) {
-        if (isNotDefaultThreshold(theshold)) {
-            if (ValueCondition.compare(condition, readout.getValue(), theshold)) {
-                addError(readout.getValue(), theshold, condition, readout.getSensor());
-                readout.setFlag(ReadoutFlag.TOO_HIGH_VALUE);
+    public void mutateOneReadout(Readout readout, ValueCondition condition, Double threshold) {
+        if (threshold == null) {
+            return;
+        }
+        if (isNotDefaultThreshold(threshold)) {
+            if (ValueCondition.compare(condition, readout.getValue(), threshold)) {
+                addError(readout.getValue(), threshold, condition, readout.getSensor());
+                readout.setFlag(ReadoutFlag.getFlagFromCondition(condition));
             }
         }
     }
@@ -76,9 +69,9 @@ public class MarkReadoutAsErronousIfValueIs implements Mutator {
         ErrorLogger.log(error);
     }
 
-    private boolean isNotDefaultThreshold(double theshold) {
-        return theshold != Integer.MIN_VALUE || theshold != Integer.MAX_VALUE;
-
+    private boolean isNotDefaultThreshold(double threshold) {
+        return threshold != Integer.MIN_VALUE || threshold != Integer.MAX_VALUE;
     }
+
 
 }

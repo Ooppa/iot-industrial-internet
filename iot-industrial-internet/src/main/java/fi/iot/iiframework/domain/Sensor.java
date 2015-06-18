@@ -17,11 +17,11 @@ import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
+@Table(name = "sensors")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "sensor")
 @Data
@@ -39,7 +39,7 @@ public class Sensor implements Serializable {
     @XmlElement(name = "readout")
     @XmlElementWrapper(name = "readouts")
     @OneToMany(mappedBy = "sensor", fetch = FetchType.LAZY)
-    @Cascade({CascadeType.ALL})
+    @Cascade(CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     protected Set<Readout> readouts = new HashSet<>();
 
@@ -56,13 +56,12 @@ public class Sensor implements Serializable {
 
     protected boolean active;
 
-    protected double thresholdMax;
+    protected Double thresholdMax;
 
-    protected double thresholdMin;
+    protected Double thresholdMin;
 
     public Sensor() {
-        thresholdMax = Integer.MAX_VALUE;
-        thresholdMin = Integer.MIN_VALUE;
+        active = true;
     }
 
     public Sensor(String name) {

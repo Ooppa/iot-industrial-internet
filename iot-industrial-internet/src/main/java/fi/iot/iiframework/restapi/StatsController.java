@@ -18,23 +18,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("1.0/stats")
 @Secured({"ROLE_VIEWER", "ROLE_MODERATOR"})
 public class StatsController {
-    
+
     @RequestMapping(value = "/informationsource/types", produces = "application/json")
     @ResponseBody
-    public InformationSourceType[] listReaderTypes(){
+    public InformationSourceType[] listReaderTypes() {
         return InformationSourceType.values();
     }
-    
+
     @RequestMapping(value = "/error/types", produces = "application/json")
     @ResponseBody
-    public ErrorType[] listErrorTypes(){
+    public ErrorType[] listErrorTypes() {
         return ErrorType.values();
     }
-    
+
     @RequestMapping(value = "/severity/types", produces = "application/json")
     @ResponseBody
-    public ErrorSeverity[] listErrorSeverityTypes(){
+    public ErrorSeverity[] listErrorSeverityTypes() {
         return ErrorSeverity.values();
     }
-    
+
 }

@@ -38,7 +38,7 @@ public class SysError implements Serializable {
 
     @Column(name = "severity")
     private ErrorSeverity severity;
-    
+
     @Column(name = "additionalInformation")
     private String additionalInformation;
 
@@ -62,7 +62,8 @@ public class SysError implements Serializable {
      *
      * @param type ErrorType of error
      * @param desc Description of error
-     * @param additionalInformation Additional information attached to this error.
+     * @param additionalInformation Additional information attached to this
+     * error.
      * @param severity ErrorSeverity of the error
      */
     public SysError(ErrorType type, ErrorSeverity severity, String desc, String additionalInformation) {
@@ -74,19 +75,19 @@ public class SysError implements Serializable {
 
     public SysError() {
     }
-    
-    public String getName(){
+
+    public String getName() {
         return this.type.getName();
     }
 
     @Override
     public String toString() {
-        return "\tid: "+ this.id +
-                "\ttype: " + this.type.toString() +
-                "\ttime: " + this.time.toString() +
-                "\tdesc: " + this.description +
-                "\tlocation: " + this.location +
-                "\tseverity: " + this.severity.toString();
+        return "\tid: " + this.id
+                + "\ttype: " + this.type.toString()
+                + "\ttime: " + this.time.toString()
+                + "\tdesc: " + this.description
+                + "\tlocation: " + this.location
+                + "\tseverity: " + this.severity.toString();
     }
 
 }

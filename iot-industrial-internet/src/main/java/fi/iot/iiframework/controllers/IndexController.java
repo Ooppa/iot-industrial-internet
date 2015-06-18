@@ -24,5 +24,4 @@ public class IndexController {
         return "ng";
     }
 
-
 }
